@@ -1,0 +1,67 @@
+---
+anchors:
+  back_to_main_menu: &back_button
+    id: back
+    text: "Back"
+    state: Selects:MAIN
+
+windows:
+  MAIN:
+    widgets:
+      - text: "Different keyboard Selects."
+      - switch_to:
+          text: "Select"
+          id: select
+          state: Selects:SELECT
+      - switch_to:
+          text: "Radio"
+          id: radio
+          state: Selects:RADIO
+      - switch_to:
+          text: "Multiselect"
+          id: multiselect
+          state: Selects:MULTI
+      - start: !include components/menu_button.yaml
+  SELECT:
+    getter: getter
+    widgets:
+      - text: "Select widget"
+      - list:
+          field: {val: "+ {item.name} - {item.id}", formatted: true}
+          items: fruits
+      - column:
+          buttons:
+            - select:
+                text: {val: "{item.name} ({item.id})", formatted: true}
+                id: sel
+                items: fruits
+                item_id_getter: fruit_id_getter
+                on_click: on_item_selected
+      - switch_to: *back_button
+  RADIO:
+    getter: getter
+    widgets:
+      - text: "Radio widget"
+      - column:
+          buttons:
+            - radio:
+                checked: {val: "🔘 {item.name}", formatted: true}
+                unchecked: {val: "⚪️ {item.name}", formatted: true}
+                id: radio
+                items: fruits
+                item_id_getter: fruit_id_getter
+      - switch_to: *back_button
+  MULTI:
+    getter: getter
+    widgets:
+      - text: "Multiselect widget"
+      - column:
+          buttons:
+            - multi_select:
+                checked: {val: "✓ {item.name}", formatted: true}
+                unchecked: {val: "{item.name}", formatted: true}
+                id: multi
+                items: fruits
+                item_id_getter: fruit_id_getter
+      - switch_to: *back_button
+...

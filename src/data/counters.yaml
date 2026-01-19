@@ -1,0 +1,19 @@
+---
+windows:
+  MAIN:
+    getter: counter_getter
+    widgets:
+      - text: "`Counter` widget is used to create +/- buttons."
+      - text: "`Progress` widget shows percentage\n"
+      - progress:
+          field: progress
+          width: 10
+          filled: "█"
+          empty: "░️"
+      - counter:
+          id: counter
+          default: 0
+          max_value: 10
+          on_text_click: on_text_click
+      - start: !include components/menu_button.yaml
+...

@@ -1,0 +1,12 @@
+---
+dialogs:
+  Menu: !include menu.yaml
+  Layouts: !include layouts.yaml
+  Scrolls: !include scrolls.yaml
+  Selects: !include selects.yaml
+  Calendars: !include calendars.yaml
+  Counters: !include counters.yaml
+  Multiwidgets: !include multiwidgets.yaml
+  Switch: !include switch.yaml
+  Callbacks: !include callbacks.yaml
+...

@@ -1,0 +1,36 @@
+---
+anchors:
+  back_to_main_menu: &back_button
+    id: back
+    text: "Back"
+    state: Calendars:MAIN
+
+windows:
+  MAIN:
+    widgets:
+      - text: "Select calendar configuration:"
+      - switch_to:
+          text: "Default"
+          id: default
+          state: Calendars:DEFAULT
+      - switch_to:
+          text: "Customized"
+          id: custom
+          state: Calendars:CUSTOM
+      - start: !include components/menu_button.yaml
+  DEFAULT:
+    widgets:
+      - text: "Default calendar widget"
+      - calendar:
+          id: cal
+          on_click: on_date_selected
+      - switch_to: *back_button
+  CUSTOM:
+    widgets:
+      - text: "Customized calendar widget"
+      - text: "Here we use custom text widgets to localize"
+      - my_calendar:
+          id: cal
+          on_click: on_date_selected
+      - switch_to: *back_button
+...

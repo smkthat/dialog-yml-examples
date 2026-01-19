@@ -1,0 +1,58 @@
+---
+anchors:
+  back_to_main_menu: &back_button
+    id: back
+    text: "Back"
+    state: Layouts:MAIN
+  select: &fruits_select
+    format: "{item}"
+    id: sel
+    items: ["Apple", "Banana", "Orange", "Pear"]
+    item_id_getter: get_fruit_item
+  button: &additional_button
+    text: "Additional button"
+    id: "btn"
+
+windows:
+  MAIN:
+    widgets:
+      - text: "Different keyboard layouts."
+      - switch_to:
+          text: "↔️ Row"
+          id: row
+          state: Layouts:ROW
+      - switch_to:
+          text: "↕️ Column"
+          id: column
+          state: Layouts:COLUMN
+      - switch_to:
+          text: "↩️ Group"
+          id: "group"
+          state: Layouts:GROUP
+      - start: !include components/menu_button.yaml
+  ROW:
+    widgets:
+      - text: "Select and Button inside `Row`"
+      - row:
+          buttons:
+            - select: *fruits_select
+            - callback: *additional_button
+      - switch_to: *back_button
+  COLUMN:
+    widgets:
+      - text: "Select and Button inside `Column`"
+      - column:
+          buttons:
+            - select: *fruits_select
+            - callback: *additional_button
+      - switch_to: *back_button
+  GROUP:
+    widgets:
+      - text: "Select and Button inside `Group` with width=2"
+      - group:
+          width: 2
+          buttons:
+            - select: *fruits_select
+            - callback: *additional_button
+      - switch_to: *back_button
+...

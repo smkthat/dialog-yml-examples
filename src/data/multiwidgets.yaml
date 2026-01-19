@@ -1,0 +1,27 @@
+---
+windows:
+  MAIN:
+    widgets:
+      - text: "Multiple widgets in one window."
+      - checkbox:
+            checked: {val: "✓ Checkbox", formatted: true}
+            unchecked: {val: "Checkbox", formatted: true}
+            id: chk
+      - radio:
+          checked: {val: "🔘 {item}", formatted: true}
+          unchecked: {val: "⚪️ {item}", formatted: true}
+          id: radio1
+          items: [A, B, C, D]
+          item_id_getter: item_id_getter
+      - multi_select:
+          checked: {val: "✓ {item}", formatted: true}
+          unchecked: {val: "{item}", formatted: true}
+          id: radio2
+          items: ["😆", "😱", "🤯", "😈", "🤖", "👻", "🤡"]
+          item_id_getter: item_id_getter
+      - counter:
+          id: count
+          default: 0
+          max_value: 10
+      - start: !include components/menu_button.yaml
+...

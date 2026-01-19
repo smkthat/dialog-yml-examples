@@ -1,0 +1,61 @@
+---
+anchors:
+  text: &header
+    val: "Multiple windows in the same dialog can be used to provide step by step user data input.\n"
+
+windows:
+  MAIN:
+    widgets:
+      - text: *header
+      - text: "Step 1. Press Next"
+      - next: null
+      - start: !include components/menu_button.yaml
+  STEP2:
+    getter: data_getter
+    widgets:
+      - text: *header
+      - text: "Step 2. Enter your name"
+      - input:
+          func: set_name
+          content_types: text
+      - back: null
+      - start: !include components/menu_button.yaml
+  STEP3:
+    widgets:
+      - text: *header
+      - text: "Step 3. Select options"
+      - checkbox:
+          checked: "✓ Option is enabled"
+          unchecked: "Click to enable the option"
+          default: false
+          id: chk
+      - radio:
+          checked: {val: "🔘 {item}", formatted: true}
+          unchecked: {val: "⚪️ {item}", formatted: true}
+          items: [😆, 😱, 😈, 🤖, 🤡]
+          item_id_getter: item_id_getter
+          id: emoji
+      - row:
+          buttons:
+            - back: null
+            - next: null
+      - start: !include components/menu_button.yaml
+  STEP4:
+    getter: data_getter
+    widgets:
+      - text: *header
+      - text: "Step 4. Your data:"
+      - format: "Your name: {name}"
+      - case:
+          texts: {
+            true: "Option: enabled",
+            false: "Option: disabled"
+          }
+          selector: option
+      - format: "Selected emoji: {emoji}"
+      - row:
+          buttons:
+            - back: null
+            - cancel: '✓ Finish'
+      - start: !include components/menu_button.yaml
+...

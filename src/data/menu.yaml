@@ -1,0 +1,40 @@
+---
+launch_mode: ROOT
+windows:
+  MAIN:
+    widgets:
+      - text: "This is a demo aiogram-dialog application created based on YAML data files"
+      - text: "Use buttons below to see some options."
+      - start:
+          text: "📐 Layout widgets"
+          id: layout
+          state: Layouts:MAIN
+      - start:
+          text: "📜 Scrolling widgets"
+          id: scrolls
+          state: Scrolls:MAIN
+      - start:
+          text: "☑️ Selection widgets"
+          id: selects
+          state: Selects:MAIN
+      - start:
+          text: "📅 Calendar widgets"
+          id: calendar
+          state: Calendars:MAIN
+      - start:
+          text: "💯 Counter and Progress"
+          id: counter
+          state: Counters:MAIN
+      - start:
+          text: "🎛 Combining widgets"
+          id: multiwidgets
+          state: Multiwidgets:MAIN
+      - start:
+          text: "🔢 Multiple steps"
+          id: switch
+          state: Switch:MAIN
+      - start:
+          text: "🔁 Callbacks"
+          id: callbacks
+          state: Callbacks:MAIN
+...

@@ -1,0 +1,51 @@
+---
+windows:
+  MAIN:
+    widgets:
+      - text: '🔁 Callbacks and notifies example'
+      - column:
+          buttons:
+            - callback:
+                id: callback_simple
+                text: 'Callback simple'
+                on_click: on_click_simple
+            - callback:
+                id: callback_with_data
+                text: 'Callback with extra data'
+                on_click:
+                  name: on_click_with_data
+                  other_data: 'other data'
+                some_data: 'some data'
+            - callback:
+                id: callback_notify
+                text: 'Callback with notify'
+                notify: 'This is notify with on_click'
+                on_click: on_click_simple
+            - callback:
+                id: notify_simple
+                text: 'Notify simple'
+                notify:
+                  val: 'This is simple notify'
+            - callback:
+                id: notify_alert
+                text: 'Notify alert'
+                notify:
+                  val: 'This is alert notify'
+                  show_alert: true
+            - callback:
+                id: notify_timeout
+                text: 'Notify alert with delay 3 sec'
+                notify:
+                  val: 'This is alert notify with 3 sec delay'
+                  show_alert: true
+                  delay: 3
+            - callback:
+                id: notify_extra
+                text: 'Notify with extra data'
+                notify:
+                  name: notify_extra
+                  val: 'This is alert notify with extra kwargs'
+                  show_alert: true
+                  other_data: { 'data1': 'data1', 'data2': { key: value } }
+      - start: !include components/menu_button.yaml
+...

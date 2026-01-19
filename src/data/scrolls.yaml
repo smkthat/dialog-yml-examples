@@ -1,0 +1,106 @@
+---
+anchors:
+  back_to_main_menu: &back_button
+    id: back
+    text: "Back"
+    state: Scrolls:MAIN
+  multi_select: &multi_select
+    checked: {val: "✓ {item[0]}", formatted: true}
+    unchecked: {val: "{item[0]}", formatted: true}
+    id: ms
+    items: products
+    item_id_getter: 1
+
+windows:
+  MAIN:
+    widgets:
+      - text: "Scrolling variant demo. Please, select an option:"
+      - switch_to:
+          text: "📜 Default Pager"
+          id: default
+          state: Scrolls:DEFAULT_PAGER
+      - switch_to:
+          text: "📑 Customized pager"
+          id: pagers
+          state: Scrolls:PAGERS
+      - switch_to:
+          text: "📄 Text scroll"
+          id: text
+          state: Scrolls:TEXT
+      - switch_to:
+          text: "📟 StubScroll (getter-based)"
+          id: stub
+          state: Scrolls:STUB
+      - start: !include components/menu_button.yaml
+  DEFAULT_PAGER:
+    getter: product_getter
+    widgets:
+      - text: "Scrolling group with default pager (legacy mode)"
+      - scrolling_group:
+          width: 1
+          height: 5
+          id: scroll_with_pager
+          buttons:
+            - multi_select: *multi_select
+      - switch_to: *back_button
+  PAGERS:
+    getter: product_getter
+    widgets:
+      - text: "Scrolling group with external paging controls"
+      - numbered_pager:
+          scroll: scroll_no_pager
+          page_text: {val: "{target_page1}\uFE0F\u20E3", formatted: true}
+          current_page_text: {val: "{current_page1}", formatted: true}
+      - numbered_pager: scroll_no_pager
+      - scrolling_group:
+          width: 1
+          height: 5
+          hide_pager: true
+          id: scroll_no_pager
+          buttons:
+            - multi_select: *multi_select
+      - row:
+          buttons:
+            - first_page:
+                scroll: scroll_no_pager
+                text: {val: "⏮️ {target_page1}", formatted: true}
+            - prev_page:
+                scroll: scroll_no_pager
+                text: "◀️"
+            - current_page:
+                scroll: scroll_no_pager
+                text: {val: "{current_page1}", formatted: true}
+            - next_page:
+                scroll: scroll_no_pager
+                text: "▶️"
+            - last_page:
+                scroll: scroll_no_pager
+                text: {val: "{target_page1} ⏭️", formatted: true}
+      - row:
+          buttons:
+            - prev_page: scroll_no_pager
+            - next_page: scroll_no_pager
+            - switch_to: *back_button
+  TEXT:
+    widgets:
+      - text: "Text scrolling:\n"
+      - scrolling_text:
+          text: !include components/very_long_text.yaml
+          id: text_scroll
+          page_size: 1000
+      - numbered_pager: text_scroll
+      - switch_to: *back_button
+  STUB:
+    getter: paging_getter
+    widgets:
+      - text: "Stub Scroll. Getter is used to paginate\n"
+      - format: "You are at page {current_page} of {pages}"
+      - format: "Day by number is {day}"
+      - static_media:
+          path: {val: "src/data/media/{current_page}.png", formatted: true}
+      - stub_scroll:
+          id: stub_scroll
+          pages: pages
+      - numbered_pager: stub_scroll
+      - switch_to: *back_button
+...
