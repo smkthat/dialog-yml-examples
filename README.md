@@ -84,7 +84,7 @@ The project includes the following sections:
 
 ## Project Structure
 
-```
+```bash
 ├── .env.example          # Environment variables file example
 ├── .gitignore           # Git ignore rules
 ├── Makefile             # Build and run scripts
@@ -98,7 +98,3 @@ The project includes the following sections:
 │   └── functions/       # Event handling functions
 └── tests/               # Tests (stub)
 ```
-
-## License
-
-The project is distributed without a license (default license).
