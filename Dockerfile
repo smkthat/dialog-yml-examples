@@ -45,7 +45,6 @@ RUN groupadd --system --gid 999 nonroot \
 # Install runtime system dependencies and remove setuid/setgid bits
 # The -xdev flag prevents find from scanning pseudo-filesystems like /proc
 RUN apt-get update && apt-get install -y --no-install-recommends \
-    ffmpeg \
     && find / -xdev -perm /6000 -type f -exec chmod a-s {} \; \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
@@ -61,6 +60,9 @@ COPY --from=builder --chown=nonroot:nonroot /app/pyproject.toml /app/pyproject.t
 ENV PATH="/app/.venv/bin:$PATH"
 ENV PYTHONPATH="/app/src"
 ENV PYTHONUNBUFFERED=1
+
+# Create and set permissions for the logs directory
+RUN mkdir -p /app/logs && chown -R nonroot:nonroot /app/logs
 
 # Use the non-root user to run our application
 USER nonroot
