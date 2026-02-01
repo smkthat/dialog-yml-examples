@@ -1,0 +1,47 @@
+services:
+  redis:
+    image: redis:latest
+    ports:
+      - "6380:${REDIS_PORT:-6379}"
+    command: "redis-server --port ${REDIS_PORT:-6379} --requirepass ${REDIS_PASSWORD}"
+    restart: unless-stopped
+    healthcheck:
+      test: ['CMD-SHELL', 'redis-cli -a "$REDIS_PASSWORD" ping | grep PONG']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_interval: 5s
+      start_period: 30s
+    volumes:
+      - redis-data:/data
+  bot:
+    build:
+      context: .
+      dockerfile: "${DOCKERFILE:-Dockerfile}"
+    image: "${IMAGE_PATH:?IMAGE_PATH is required}"
+    restart: always
+    healthcheck:
+      test: ["CMD", "python", "-m", "src.scripts.healthcheck"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 5s
+    depends_on:
+      redis:
+        condition: service_healthy
+    ports:
+      - "5005:5005"
+    environment:
+      TZ: Europe/Moscow
+      # Telegram Bot Configuration
+      MEGA_BOT_TOKEN: ${MEGA_BOT_TOKEN:?MEGA_BOT_TOKEN is required}
+      MEGA_BOT_LOG_LEVEL: ${MEGA_BOT_LOG_LEVEL}
+      REDIS_HOST: ${REDIS_HOST}
+      REDIS_PORT: ${REDIS_PORT}
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      REDIS_DB: ${REDIS_DB}
+    volumes:
+      - ./logs:/app/logs
+
+volumes:
+  redis-data:

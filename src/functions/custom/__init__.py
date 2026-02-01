@@ -1,3 +1,5 @@
+"""Custom functions and models for dialogs."""
+
 from .calendars import CustomCalendarModel
 
 __all__ = [

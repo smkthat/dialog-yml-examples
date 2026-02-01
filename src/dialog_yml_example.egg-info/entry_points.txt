@@ -1,0 +1,2 @@
+[console_scripts]
+spoetka_base = src:main

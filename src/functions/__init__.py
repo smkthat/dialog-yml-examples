@@ -1,3 +1,5 @@
+"""Functions for registering dialog YAML functions."""
+
 from dialog_yml import FuncsRegistry
 
 from .layouts import register_layouts
@@ -11,6 +13,14 @@ from .callbacks import register_notifies
 
 
 def register_dialog_yml_funcs(registry: FuncsRegistry):
+    """Register all dialog functions in the registry.
+
+    Parameters
+    ----------
+    registry : FuncsRegistry
+        The registry to register functions with.
+
+    """
     register_switch(registry)
     register_multiwidgets(registry)
     register_selects(registry)
