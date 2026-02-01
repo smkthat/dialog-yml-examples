@@ -6,6 +6,8 @@
 
 This is an example Telegram bot project built using the aiogram framework and the dialog-yml library, which allows defining dialog interfaces through YAML files.
 
+**Telegram Demo Bot:** [t.me/dialog_yml_demo_bot](https://t.me/dialog_yml_demo_bot)
+
 ## Description
 
 The project demonstrates the capabilities of creating complex dialog interfaces for Telegram bots using a declarative approach through YAML configurations. Thanks to the dialog-yml library, all dialog logic is defined in YAML files, making the project more maintainable and flexible.
